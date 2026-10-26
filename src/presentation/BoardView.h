@@ -5,19 +5,19 @@
 
 namespace ttt {
 
-// Draws a Board. Read-only: it never modifies game state.
-class BoardView {
-public:
-    explicit BoardView(BoardLayout layout) : layout_(layout) {}
+    // Draws a Board. Read-only: never modifies game state
+    class BoardView {
+    public:
+        explicit BoardView(BoardLayout layout) : layout_(layout) {}
 
-    void draw(sf::RenderTarget& target, const Board& board) const;
+        void draw(sf::RenderTarget& target, const Board& board) const;
 
-private:
-    void drawGrid(sf::RenderTarget& target) const;
-    void drawX(sf::RenderTarget& target, sf::Vector2f center) const;
-    void drawO(sf::RenderTarget& target, sf::Vector2f center) const;
+    private:
+        void drawGrid(sf::RenderTarget& target) const;
+        void drawX(sf::RenderTarget& target, sf::Vector2f center) const;
+        void drawO(sf::RenderTarget& target, sf::Vector2f center) const;
 
-    BoardLayout layout_;
-};
+        BoardLayout layout_;
+    };
 
-} // namespace ttt
+}

@@ -3,7 +3,7 @@
 
 namespace ttt {
 
-// Places `text` so that its visual centre is at (cx, cy).
+// Places 'text' so that its visual centre is at (cx, cy).
 inline void centerText(sf::Text& text, float cx, float cy)
 {
     const sf::FloatRect bounds = text.getLocalBounds();
@@ -12,4 +12,4 @@ inline void centerText(sf::Text& text, float cx, float cy)
     text.setPosition({cx, cy});
 }
 
-} // namespace ttt
+}

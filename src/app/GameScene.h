@@ -10,31 +10,31 @@
 
 namespace ttt {
 
-// Human (X, moves first) versus AI (O).
-class GameScene final : public IScene {
-public:
-    GameScene(ISceneNavigator& navigator, const sf::Font& font, Difficulty difficulty);
+    // Human (X, moves first) versus AI (O).
+    class GameScene final : public IScene {
+    public:
+        GameScene(ISceneNavigator& navigator, const sf::Font& font, Difficulty difficulty);
 
-    void handleEvent(const sf::Event& event) override;
-    void update() override;
-    void draw(sf::RenderTarget& target) const override;
+        void handleEvent(const sf::Event& event) override;
+        void update() override;
+        void draw(sf::RenderTarget& target) const override;
 
-private:
-    std::string statusMessage() const;
-    void refreshStatus();
+    private:
+        std::string statusMessage() const;
+        void refreshStatus();
 
-    // NOTE: declaration order matters: human_ must precede match_ (see constructor).
-    ISceneNavigator& navigator_;
-    const sf::Font& font_;
-    HumanPlayer* human_;      // non-owning: the Match owns the player
-    Match match_;
-    InputMapper mapper_;
-    BoardView boardView_;
-    sf::Text status_;
-    Button playAgain_;
-    Button menu_;
-    Button exit_;
-    sf::Clock thinkClock_;
-};
+        // NOTE: declaration order matters: human_ must precede match_ (see constructor).
+        ISceneNavigator& navigator_;
+        const sf::Font& font_;
+        HumanPlayer* human_;      // non-owning: the Match owns the player
+        Match match_;
+        InputMapper mapper_;
+        BoardView boardView_;
+        sf::Text status_;
+        Button playAgain_;
+        Button menu_;
+        Button exit_;
+        sf::Clock thinkClock_;
+    };
 
-} // namespace ttt
+}

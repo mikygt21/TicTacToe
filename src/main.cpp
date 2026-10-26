@@ -8,7 +8,7 @@ int main()
         ttt::Application app;
         return app.run();
     } catch (const std::exception& e) {
-        std::cerr << "Fatal error: " << e.what() << '\n';
+        std::cerr << "Fatal error: " << e.what() << std::endl;
         return 1;
     }
 }
