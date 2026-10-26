@@ -1,19 +1,14 @@
-// Minimal dependency-free harness. Swap for Catch2/GoogleTest once you add a package manager.
-#include "../src/core/Board.h"
-#include "../src/core/Game.h"
-#include "../src/core/Match.h"
-#include "../src/core/Rules.h"
-#include "../src/players/HumanPlayer.h"
+#include "TestUtil.h"
+#include "core/Board.h"
+#include "core/Game.h"
+#include "core/Match.h"
+#include "core/Rules.h"
+#include "players/HumanPlayer.h"
 #include <initializer_list>
-#include <iostream>
 #include <queue>
 #include <stdexcept>
 
 using namespace ttt;
-
-static int g_failed = 0;
-#define CHECK(cond) do { if (!(cond)) { ++g_failed; \
-    std::cerr << __FILE__ << ":" << __LINE__ << "  FAILED: " #cond "\n"; } } while (0)
 
 static void play(Game& g, std::initializer_list<Move> moves)
 {
@@ -140,6 +135,5 @@ int main()
     matchWaitsForHumanInput();
     matchRejectsNullPlayers();
 
-    if (g_failed == 0) std::cout << "All tests passed\n";
-    return g_failed == 0 ? 0 : 1;
+    return ttt_test::report();
 }

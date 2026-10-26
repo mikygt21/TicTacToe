@@ -135,7 +135,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source.cpp" />
+    <ClCompile Include="src\app\Application.cpp" />
+    <ClCompile Include="src\app\GameScene.cpp" />
+    <ClCompile Include="src\app\MenuScene.cpp" />
+    <ClCompile Include="src\core\Board.cpp" />
+    <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\Match.cpp" />
+    <ClCompile Include="src\core\Rules.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\players\AIPlayer.cpp" />
+    <ClCompile Include="src\presentation\BoardView.cpp" />
+    <ClCompile Include="src\presentation\Button.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\Application.h" />
+    <ClInclude Include="src\app\GameScene.h" />
+    <ClInclude Include="src\app\IScene.h" />
+    <ClInclude Include="src\app\MenuScene.h" />
+    <ClInclude Include="src\core\Board.h" />
+    <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\IPlayer.h" />
+    <ClInclude Include="src\core\Mark.h" />
+    <ClInclude Include="src\core\Match.h" />
+    <ClInclude Include="src\core\Move.h" />
+    <ClInclude Include="src\core\Rules.h" />
+    <ClInclude Include="src\players\AIPlayer.h" />
+    <ClInclude Include="src\players\HumanPlayer.h" />
+    <ClInclude Include="src\presentation\BoardLayout.h" />
+    <ClInclude Include="src\presentation\BoardView.h" />
+    <ClInclude Include="src\presentation\Button.h" />
+    <ClInclude Include="src\presentation\InputMapper.h" />
+    <ClInclude Include="src\presentation\TextUtil.h" />
+    <ClInclude Include="src\presentation\UiConfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
