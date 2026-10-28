@@ -1,4 +1,5 @@
 #include "TestUtil.h"
+#include "Tests.h"
 #include "core/Board.h"
 #include "core/Game.h"
 #include "core/Match.h"
@@ -123,7 +124,7 @@ static void matchRejectsNullPlayers()
     CHECK(threw);
 }
 
-int main()
+void runCoreTests()
 {
     boardRejectsInvalidPlacement();
     rowColumnDiagonalWins();
@@ -135,5 +136,4 @@ int main()
     matchWaitsForHumanInput();
     matchRejectsNullPlayers();
 
-    return ttt_test::report();
 }

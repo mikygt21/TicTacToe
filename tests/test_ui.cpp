@@ -1,9 +1,10 @@
 #include "TestUtil.h"
+#include "Tests.h"
 #include "presentation/InputMapper.h"
 
 using namespace ttt;
 
-int main()
+void runUiTests()
 {
     // Board at (50,110), 500px wide -> each cell ~166.67px
     const InputMapper mapper(BoardLayout{50.f, 110.f, 500.f});
@@ -22,5 +23,4 @@ int main()
     CHECK(!mapper.cellAt(-10.f, -10.f).has_value());
     CHECK(!mapper.cellAt(1000.f, 1000.f).has_value());
 
-    return ttt_test::report();
 }

@@ -1,4 +1,5 @@
 #include "TestUtil.h"
+#include "Tests.h"
 #include "core/Game.h"
 #include "core/Rules.h"
 #include "players/AIPlayer.h"
@@ -112,7 +113,7 @@ static void hardNeverLoses()
     }
 }
 
-int main()
+void runAiTests()
 {
     hardTakesImmediateWin();
     hardBlocksOpponentWin();
@@ -121,5 +122,4 @@ int main()
     returnsNothingOnFullBoard();
     sameSeedGivesSameEasyMoves();
     hardNeverLoses();
-    return ttt_test::report();
 }
