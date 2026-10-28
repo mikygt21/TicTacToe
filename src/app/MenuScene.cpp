@@ -12,19 +12,19 @@ namespace ttt {
     } // namespace
 
     MenuScene::MenuScene(ISceneNavigator& navigator, const sf::Font& font)
-        : navigator_(navigator)
-        , font_(font)
-        , title_(font, "Tic-Tac-Toe", 64)
-        , subtitle_(font, "Choose difficulty", 30)
-        , easy_(font, "Easy", {kCenterX, 340.f}, kButtonSize)
-        , medium_(font, "Medium", {kCenterX, 420.f}, kButtonSize)
-        , hard_(font, "Hard", {kCenterX, 500.f}, kButtonSize)
-        , exit_(font, "Exit", {kCenterX, 620.f}, kButtonSize)
+        : _navigator(navigator)
+        , _font(font)
+        , _titleText(font, "Tic-Tac-Toe", 64)
+        , _subtitleText(font, "Choose difficulty", 30)
+        , _easyButton(font, "Easy", {kCenterX, 340.f}, kButtonSize)
+        , _mediumButton(font, "Medium", {kCenterX, 420.f}, kButtonSize)
+        , _hardButton(font, "Hard", {kCenterX, 500.f}, kButtonSize)
+        , _exitButton(font, "Exit", {kCenterX, 620.f}, kButtonSize)
     {
-        title_.setFillColor(ui::kText);
-        subtitle_.setFillColor(ui::kText);
-        centerText(title_, kCenterX, 140.f);
-        centerText(subtitle_, kCenterX, 240.f);
+        _titleText.setFillColor(ui::kText);
+        _subtitleText.setFillColor(ui::kText);
+        centerText(_titleText, kCenterX, 140.f);
+        centerText(_subtitleText, kCenterX, 240.f);
     }
 
     void MenuScene::handleEvent(const sf::Event& event)
@@ -32,10 +32,10 @@ namespace ttt {
         if (const auto* moved = event.getIf<sf::Event::MouseMoved>()) {
             const float x = static_cast<float>(moved->position.x);
             const float y = static_cast<float>(moved->position.y);
-            easy_.setHovered(easy_.contains(x, y));
-            medium_.setHovered(medium_.contains(x, y));
-            hard_.setHovered(hard_.contains(x, y));
-            exit_.setHovered(exit_.contains(x, y));
+            _easyButton.setHovered(_easyButton.contains(x, y));
+            _mediumButton.setHovered(_mediumButton.contains(x, y));
+            _hardButton.setHovered(_hardButton.contains(x, y));
+            _exitButton.setHovered(_exitButton.contains(x, y));
             return;
         }
 
@@ -46,24 +46,24 @@ namespace ttt {
         const float x = static_cast<float>(pressed->position.x);
         const float y = static_cast<float>(pressed->position.y);
 
-        if (easy_.contains(x, y))
-            navigator_.goTo(std::make_unique<GameScene>(navigator_, font_, Difficulty::Easy));
-        else if (medium_.contains(x, y))
-            navigator_.goTo(std::make_unique<GameScene>(navigator_, font_, Difficulty::Medium));
-        else if (hard_.contains(x, y))
-            navigator_.goTo(std::make_unique<GameScene>(navigator_, font_, Difficulty::Hard));
-        else if (exit_.contains(x, y))
-            navigator_.quit();
+        if (_easyButton.contains(x, y))
+            _navigator.goTo(std::make_unique<GameScene>(_navigator, _font, Difficulty::Easy));
+        else if (_mediumButton.contains(x, y))
+            _navigator.goTo(std::make_unique<GameScene>(_navigator, _font, Difficulty::Medium));
+        else if (_hardButton.contains(x, y))
+            _navigator.goTo(std::make_unique<GameScene>(_navigator, _font, Difficulty::Hard));
+        else if (_exitButton.contains(x, y))
+            _navigator.quit();
     }
 
     void MenuScene::draw(sf::RenderTarget& target) const
     {
-        target.draw(title_);
-        target.draw(subtitle_);
-        easy_.draw(target);
-        medium_.draw(target);
-        hard_.draw(target);
-        exit_.draw(target);
+        target.draw(_titleText);
+        target.draw(_subtitleText);
+        _easyButton.draw(target);
+        _mediumButton.draw(target);
+        _hardButton.draw(target);
+        _exitButton.draw(target);
     }
 
 } // namespace ttt

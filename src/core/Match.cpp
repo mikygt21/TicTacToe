@@ -5,23 +5,23 @@
 namespace ttt {
 
     Match::Match(std::unique_ptr<IPlayer> playerX, std::unique_ptr<IPlayer> playerO)
-        : playerX_(std::move(playerX))
-        , playerO_(std::move(playerO))
+        : _playerX(std::move(playerX))
+        , _playerO(std::move(playerO))
     {
-        if (!playerX_ || !playerO_)
+        if (!_playerX || !_playerO)
             throw std::invalid_argument("Match requires two players");
     }
 
     void Match::update()
     {
-        if (game_.isOver())
+        if (_game.isOver())
             return;
 
-        const Mark turn = game_.currentTurn();
-        IPlayer& player = (turn == Mark::X) ? *playerX_ : *playerO_;
+        const Mark turn = _game.currentTurn();
+        IPlayer& player = (turn == Mark::X) ? *_playerX : *_playerO;
 
-        if (const auto move = player.chooseMove(game_.board(), turn))
-            game_.tryPlay(*move); // illegal moves are rejected; player is polled again
+        if (const auto move = player.chooseMove(_game.board(), turn))
+            _game.tryPlay(*move); // illegal moves are rejected; player is polled again
     }
 
 }

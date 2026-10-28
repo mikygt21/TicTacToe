@@ -22,8 +22,8 @@ namespace ttt {
         std::optional<Move> chooseMove(const Board& board, Mark self) override;
 
     private:
-        Difficulty difficulty_;
-        std::mt19937 rng_;
+        Difficulty _difficulty;
+        std::mt19937 _rng;
     };
 
 }

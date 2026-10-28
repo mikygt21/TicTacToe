@@ -23,18 +23,18 @@ namespace ttt {
         std::string statusMessage() const;
         void refreshStatus();
 
-        // NOTE: declaration order matters: human_ must precede match_ (see constructor).
-        ISceneNavigator& navigator_;
-        const sf::Font& font_;
-        HumanPlayer* human_;      // non-owning: the Match owns the player
-        Match match_;
-        InputMapper mapper_;
-        BoardView boardView_;
-        sf::Text status_;
-        Button playAgain_;
-        Button menu_;
-        Button exit_;
-        sf::Clock thinkClock_;
+        // NOTE: declaration order matters: _human must precede _match (see constructor).
+        ISceneNavigator& _navigator;
+        const sf::Font& _font;
+        HumanPlayer* _human;
+        Match _match;
+        InputMapper _mapper;
+        BoardView _boardView;
+        sf::Text _status;
+        Button _playAgainButton;
+        Button _menuButton;
+        Button _exitButton;
+        sf::Clock _thinkClock;
     };
 
 }

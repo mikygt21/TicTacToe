@@ -24,18 +24,18 @@ namespace ttt {
     } // namespace
 
     GameScene::GameScene(ISceneNavigator& navigator, const sf::Font& font, Difficulty difficulty)
-        : navigator_(navigator)
-        , font_(font)
-        , human_(nullptr)
-        , match_(makeMatch(difficulty, human_))
-        , mapper_(ui::kBoardLayout)
-        , boardView_(ui::kBoardLayout)
-        , status_(font, "", 34)
-        , playAgain_(font, "Play again", {kCenterX - 190.f, kButtonY}, kButtonSize)
-        , menu_(font, "Menu", {kCenterX, kButtonY}, kButtonSize)
-        , exit_(font, "Exit", {kCenterX + 190.f, kButtonY}, kButtonSize)
+        : _navigator(navigator)
+        , _font(font)
+        , _human(nullptr)
+        , _match(makeMatch(difficulty, _human))
+        , _mapper(ui::kBoardLayout)
+        , _boardView(ui::kBoardLayout)
+        , _status(font, "", 34)
+        , _playAgainButton(font, "Play again", {kCenterX - 190.f, kButtonY}, kButtonSize)
+        , _menuButton(font, "Menu", {kCenterX, kButtonY}, kButtonSize)
+        , _exitButton(font, "Exit", {kCenterX + 190.f, kButtonY}, kButtonSize)
     {
-        status_.setFillColor(ui::kText);
+        _status.setFillColor(ui::kText);
         refreshStatus();
     }
 
@@ -44,9 +44,9 @@ namespace ttt {
         if (const auto* moved = event.getIf<sf::Event::MouseMoved>()) {
             const float x = static_cast<float>(moved->position.x);
             const float y = static_cast<float>(moved->position.y);
-            playAgain_.setHovered(playAgain_.contains(x, y));
-            menu_.setHovered(menu_.contains(x, y));
-            exit_.setHovered(exit_.contains(x, y));
+            _playAgainButton.setHovered(_playAgainButton.contains(x, y));
+            _menuButton.setHovered(_menuButton.contains(x, y));
+            _exitButton.setHovered(_exitButton.contains(x, y));
             return;
         }
 
@@ -57,56 +57,56 @@ namespace ttt {
         const float x = static_cast<float>(pressed->position.x);
         const float y = static_cast<float>(pressed->position.y);
 
-        if (match_.game().isOver()) {
-            if (playAgain_.contains(x, y))
-                match_.restart();
-            else if (menu_.contains(x, y))
-                navigator_.goTo(std::make_unique<MenuScene>(navigator_, font_));
-            else if (exit_.contains(x, y))
-                navigator_.quit();
+        if (_match.game().isOver()) {
+            if (_playAgainButton.contains(x, y))
+                _match.restart();
+            else if (_menuButton.contains(x, y))
+                _navigator.goTo(std::make_unique<MenuScene>(_navigator, _font));
+            else if (_exitButton.contains(x, y))
+                _navigator.quit();
             return;
         }
 
         // Only forward clicks on the human's turn
-        if (match_.game().currentTurn() != kHumanMark)
+        if (_match.game().currentTurn() != kHumanMark)
             return;
 
-        if (const auto cell = mapper_.cellAt(x, y))
-            human_->submit(*cell);
+        if (const auto cell = _mapper.cellAt(x, y))
+            _human->submit(*cell);
     }
 
     void GameScene::update()
     {
-        const Game& game = match_.game();
+        const Game& game = _match.game();
         if (game.isOver()) {
             refreshStatus();
             return;
         }
 
         if (game.currentTurn() == kHumanMark) {
-            thinkClock_.restart(); // the AI's "thinking" time starts when the human has moved
-            match_.update();
-        } else if (thinkClock_.getElapsedTime().asSeconds() >= kAiThinkSeconds) {
-            match_.update();
+            _thinkClock.restart(); // the AI's "thinking" time starts when the human has moved
+            _match.update();
+        } else if (_thinkClock.getElapsedTime().asSeconds() >= kAiThinkSeconds) {
+            _match.update();
         }
         refreshStatus();
     }
 
     void GameScene::draw(sf::RenderTarget& target) const
     {
-        boardView_.draw(target, match_.game().board());
-        target.draw(status_);
+        _boardView.draw(target, _match.game().board());
+        target.draw(_status);
 
-        if (match_.game().isOver()) {
-            playAgain_.draw(target);
-            menu_.draw(target);
-            exit_.draw(target);
+        if (_match.game().isOver()) {
+            _playAgainButton.draw(target);
+            _menuButton.draw(target);
+            _exitButton.draw(target);
         }
     }
 
     std::string GameScene::statusMessage() const
     {
-        const Game& game = match_.game();
+        const Game& game = _match.game();
         const bool humanWon = (game.status() == GameStatus::XWon && kHumanMark == Mark::X) ||
                               (game.status() == GameStatus::OWon && kHumanMark == Mark::O);
         switch (game.status()) {
@@ -123,8 +123,8 @@ namespace ttt {
 
     void GameScene::refreshStatus()
     {
-        status_.setString(statusMessage());
-        centerText(status_, kCenterX, 55.f);
+        _status.setString(statusMessage());
+        centerText(_status, kCenterX, 55.f);
     }
 
 } // namespace ttt

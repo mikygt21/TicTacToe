@@ -12,15 +12,15 @@ namespace ttt {
         MoveResult tryPlay(Move m) noexcept;
         void reset() noexcept;
 
-        const Board& board() const noexcept { return board_; }
-        Mark currentTurn() const noexcept { return turn_; }
-        GameStatus status() const noexcept { return status_; }
-        bool isOver() const noexcept { return status_ != GameStatus::InProgress; }
+        const Board& board() const noexcept { return _board; }
+        Mark currentTurn() const noexcept { return _turn; }
+        GameStatus status() const noexcept { return _status; }
+        bool isOver() const noexcept { return _status != GameStatus::InProgress; }
 
     private:
-        Board board_;
-        Mark turn_ = Mark::X;
-        GameStatus status_ = GameStatus::InProgress;
+        Board _board;
+        Mark _turn = Mark::X;
+        GameStatus _status = GameStatus::InProgress;
     };
 
 }

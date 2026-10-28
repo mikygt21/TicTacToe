@@ -5,8 +5,8 @@
 
 namespace ttt {
 
-    // Pure data holder for the 3x3 grid
-    class Board {
+    class Board 
+    {
     public:
         static constexpr int Size = 3;
 

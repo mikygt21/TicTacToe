@@ -13,8 +13,8 @@ namespace ttt {
         void draw(sf::RenderTarget& target) const;
 
     private:
-        sf::RectangleShape box_;
-        sf::Text label_;
+        sf::RectangleShape _box;
+        sf::Text _label;
     };
 
 }

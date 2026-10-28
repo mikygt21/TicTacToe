@@ -10,15 +10,15 @@ class Application final : public ISceneNavigator {
         Application(); // throws std::runtime_error if assets are missing
         int run();
 
-        void goTo(std::unique_ptr<IScene> next) override { pending_ = std::move(next); }
-        void quit() override { quitRequested_ = true; }
+        void goTo(std::unique_ptr<IScene> next) override { _pending = std::move(next); }
+        void quit() override { _quitRequested = true; }
 
     private:
-        sf::RenderWindow window_;
-        sf::Font font_;
-        std::unique_ptr<IScene> scene_;
-        std::unique_ptr<IScene> pending_;
-        bool quitRequested_ = false;
+        sf::RenderWindow _window;
+        sf::Font _font;
+        std::unique_ptr<IScene> _scene;
+        std::unique_ptr<IScene> _pending;
+        bool _quitRequested = false;
     };
 
 }

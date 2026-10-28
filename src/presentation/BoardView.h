@@ -6,9 +6,10 @@
 namespace ttt {
 
     // Draws a Board. Read-only: never modifies game state
-    class BoardView {
+    class BoardView 
+    {
     public:
-        explicit BoardView(BoardLayout layout) : layout_(layout) {}
+        explicit BoardView(BoardLayout layout) : _layout(layout) {}
 
         void draw(sf::RenderTarget& target, const Board& board) const;
 
@@ -17,7 +18,7 @@ namespace ttt {
         void drawX(sf::RenderTarget& target, sf::Vector2f center) const;
         void drawO(sf::RenderTarget& target, sf::Vector2f center) const;
 
-        BoardLayout layout_;
+        BoardLayout _layout;
     };
 
 }

@@ -30,42 +30,44 @@ namespace ttt {
     } // namespace
 
     Application::Application()
-        : window_(sf::VideoMode({ui::kWindowWidth, ui::kWindowHeight}),
+        : _window(sf::VideoMode({ui::kWindowWidth, ui::kWindowHeight}),
                   "Tic-Tac-Toe",
                   sf::Style::Titlebar | sf::Style::Close) // fixed size: pixel == world coordinates
     {
-        window_.setFramerateLimit(60);
+        _window.setFramerateLimit(60);
 
         const auto fontPath = findAsset("fonts/DejaVuSans.ttf");
-        if (!font_.openFromFile(fontPath))
+        if (!_font.openFromFile(fontPath))
             throw std::runtime_error("Could not load font: " + fontPath.string());
     }
 
     int Application::run()
     {
-        scene_ = std::make_unique<MenuScene>(*this, font_);
+        _scene = std::make_unique<MenuScene>(*this, _font);
 
-        while (window_.isOpen() && !quitRequested_) {
-            while (const std::optional event = window_.pollEvent()) {
+        while (_window.isOpen() && !_quitRequested) {
+            while (const std::optional event = _window.pollEvent()) 
+            {
                 if (event->is<sf::Event::Closed>())
-                    quitRequested_ = true;
+                    _quitRequested = true;
                 else
-                    scene_->handleEvent(*event);
+                    _scene->handleEvent(*event);
             }
-            if (quitRequested_)
+            if (_quitRequested)
                 break;
 
-            scene_->update();
+            _scene->update();
 
-            window_.clear(ui::kBackground);
-            scene_->draw(window_);
-            window_.display();
+            _window.clear(ui::kBackground);
+            _scene->draw(_window);
+            _window.display();
 
-            if (pending_)
-                scene_ = std::move(pending_);
+            if (_pending)
+                _scene = std::move(_pending);
         }
 
-        window_.close();
+        _window.close();
+
         return 0;
     }
 

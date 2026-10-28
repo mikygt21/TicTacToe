@@ -5,31 +5,30 @@
 namespace ttt {
 
     Button::Button(const sf::Font& font, const std::string& label, sf::Vector2f center, sf::Vector2f size)
-        : box_(size)
-        , label_(font, label, 26)
+        : _box(size), _label(font, label, 26)
     {
-        box_.setOrigin(size / 2.f);
-        box_.setPosition(center);
-        box_.setFillColor(ui::kButton);
+        _box.setOrigin(size / 2.f);
+        _box.setPosition(center);
+        _box.setFillColor(ui::kButton);
 
-        label_.setFillColor(ui::kText);
-        centerText(label_, center.x, center.y);
+        _label.setFillColor(ui::kText);
+        centerText(_label, center.x, center.y);
     }
 
     bool Button::contains(float x, float y) const
     {
-        return box_.getGlobalBounds().contains({x, y});
+        return _box.getGlobalBounds().contains({x, y});
     }
 
     void Button::setHovered(bool hovered)
     {
-        box_.setFillColor(hovered ? ui::kButtonHover : ui::kButton);
+        _box.setFillColor(hovered ? ui::kButtonHover : ui::kButton);
     }
 
     void Button::draw(sf::RenderTarget& target) const
     {
-        target.draw(box_);
-        target.draw(label_);
+        target.draw(_box);
+        target.draw(_label);
     }
 
 }

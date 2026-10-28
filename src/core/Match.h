@@ -11,14 +11,14 @@ namespace ttt {
         Match(std::unique_ptr<IPlayer> playerX, std::unique_ptr<IPlayer> playerO);
 
         void update();
-        void restart() noexcept { game_.reset(); }
+        void restart() noexcept { _game.reset(); }
 
-        const Game& game() const noexcept { return game_; }
+        const Game& game() const noexcept { return _game; }
 
     private:
-        Game game_;
-        std::unique_ptr<IPlayer> playerX_;
-        std::unique_ptr<IPlayer> playerO_;
+        Game _game;
+        std::unique_ptr<IPlayer> _playerX;
+        std::unique_ptr<IPlayer> _playerO;
     };
 
 }

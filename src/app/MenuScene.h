@@ -13,14 +13,14 @@ namespace ttt {
         void draw(sf::RenderTarget& target) const override;
 
     private:
-        ISceneNavigator& navigator_;
-        const sf::Font& font_;
-        sf::Text title_;
-        sf::Text subtitle_;
-        Button easy_;
-        Button medium_;
-        Button hard_;
-        Button exit_;
+        ISceneNavigator& _navigator;
+        const sf::Font& _font;
+        sf::Text _titleText;
+        sf::Text _subtitleText;
+        Button _easyButton;
+        Button _mediumButton;
+        Button _hardButton;
+        Button _exitButton;
     };
 
 }

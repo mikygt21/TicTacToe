@@ -80,8 +80,8 @@ namespace ttt {
     } // namespace
 
     AIPlayer::AIPlayer(Difficulty difficulty, std::uint32_t seed)
-        : difficulty_(difficulty)
-        , rng_(seed)
+        : _difficulty(difficulty)
+        , _rng(seed)
     {
     }
 
@@ -91,19 +91,19 @@ namespace ttt {
         if (moves.empty())
             return std::nullopt;
 
-        switch (difficulty_) {
+        switch (_difficulty) {
         case Difficulty::Hard:
-            return bestMove(board, self, moves, rng_);
+            return bestMove(board, self, moves, _rng);
         case Difficulty::Medium:
             if (const auto win = findCompletingMove(board, self))
                 return win;
             if (const auto block = findCompletingMove(board, opponent(self)))
                 return block;
-            return pickRandom(moves, rng_);
+            return pickRandom(moves, _rng);
         case Difficulty::Easy:
             break;
         }
-        return pickRandom(moves, rng_);
+        return pickRandom(moves, _rng);
     }
 
 } // namespace ttt

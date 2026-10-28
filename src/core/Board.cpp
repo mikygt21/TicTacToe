@@ -23,8 +23,11 @@ namespace ttt {
 
     bool Board::isFull() const noexcept
     {
-        return std::none_of(cells_.begin(), cells_.end(),
-                            [](Mark c) { return c == Mark::None; });
+        return std::none_of(
+            cells_.begin(), cells_.end(),
+            [](Mark c) { return c == Mark::None; 
+            }
+        );
     }
 
     void Board::clear() noexcept

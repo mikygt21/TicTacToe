@@ -9,26 +9,31 @@ namespace ttt {
             return MoveResult::GameOver;
         if (!Board::inBounds(m))
             return MoveResult::OutOfBounds;
-        if (!board_.place(m, turn_))
+        if (!_board.place(m, _turn))
             return MoveResult::CellOccupied;
 
-        switch (findWinner(board_)) {
-        case Mark::X: status_ = GameStatus::XWon; break;
-        case Mark::O: status_ = GameStatus::OWon; break;
+        switch (findWinner(_board)) 
+        {
+        case Mark::X: 
+            _status = GameStatus::XWon; 
+            break;
+        case Mark::O: 
+            _status = GameStatus::OWon; 
+            break;
         default:
-            if (board_.isFull())
-                status_ = GameStatus::Draw;
+            if (_board.isFull())
+                _status = GameStatus::Draw;
             else
-                turn_ = opponent(turn_);
+                _turn = opponent(_turn);
         }
         return MoveResult::Ok;
     }
 
     void Game::reset() noexcept
     {
-        board_.clear();
-        turn_ = Mark::X;
-        status_ = GameStatus::InProgress;
+        _board.clear();
+        _turn = Mark::X;
+        _status = GameStatus::InProgress;
     }
 
 }
