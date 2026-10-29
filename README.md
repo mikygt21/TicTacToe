@@ -1,6 +1,6 @@
 # TicTacToe
 
-A Tic-Tac-Toe game for Windows written in modern C++ with [SFML 3](https://www.sfml-dev.org/).
+A Tic-Tac-Toe game for Windows written in C++ (C++ 17) with [SFML 3](https://www.sfml-dev.org/).
 Play against an AI with three difficulty levels, from random moves to an unbeatable minimax opponent.
 
 ![C++17](https://img.shields.io/badge/C%2B%2B-17-blue)
@@ -9,9 +9,9 @@ Play against an AI with three difficulty levels, from random moves to an unbeata
 ![Platform](https://img.shields.io/badge/platform-Windows%20x64-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
-![Gameplay screenshots](docs/images/ttt_main.png)
-![](docs/images/ttt_game.png)
-![](docs/images/ttt_end.png)
+![MainMenu](docs/images/ttt_main.PNG)
+![Game](docs/images/ttt_game.PNG)
+![Gameover screen](docs/images/ttt_end.PNG)
 
 ## Features
 
