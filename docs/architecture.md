@@ -1,9 +1,8 @@
 # Architecture
 
-This document describes how the code is organised and why. The diagrams are
-written in [Mermaid](https://mermaid.js.org/), so GitHub renders them directly.
-To restyle them, paste the code blocks into Mermaid Live Editor, draw.io
-(*Arrange → Insert → Advanced → Mermaid*) or any compatible tool.
+Code organization and development focused in complying SOLID principles. 
+The diagrams are written in [Mermaid](https://mermaid.js.org/).
+
 
 ## Layers and the dependency rule
 
@@ -11,7 +10,7 @@ The code is split into four folders. **Dependencies only point downwards**:
 `core` knows nothing about the other layers, and only `presentation` and `app`
 know about SFML.
 
-| Folder | Responsibility | Uses SFML |
+| Folder | Responsibility | SFML dependency |
 |---|---|---|
 | `src/core` | Game state and rules (`Board`, `Game`, `Rules`, `Match`) and the `IPlayer` abstraction | No |
 | `src/players` | Implementations of `IPlayer`: `HumanPlayer`, `AIPlayer` | No |
@@ -114,8 +113,7 @@ AIPlayer ..> Rules : uses
 ```
 
 `Move` is the value type passed around everywhere (`Board`, `Game`,
-`IPlayer`, `HumanPlayer`, `AIPlayer`); only two of its arrows are drawn to keep
-the diagram readable.
+`IPlayer`, `HumanPlayer`, `AIPlayer`); only two of its arrows are drawn to improve diagram readability.
 
 ### Application and presentation (SFML)
 
@@ -181,16 +179,18 @@ GameScene ..> AIPlayer : creates
 
 Notes:
 
-- `BoardView` and `InputMapper` both take a `BoardLayout` (a small SFML-free
-  struct: board position and size), so drawing and click detection always
+- `BoardView` and `InputMapper` both take a `BoardLayout`, so drawing and click detection always
   agree on the geometry.
 
 - `Match`, `HumanPlayer` and `AIPlayer` are shown collapsed; their details are
   in the domain diagram above.
+  
 - `UiConfig.h` (colours, window size, board position) and `TextUtil.h` are
   shared helpers used across `presentation` and `app`; they are left out to keep
   the diagram readable.
+  
 - `Rules` is a set of free functions, shown as a class only for convenience.
+
 - `main()` creates one `Application` and calls `run()`.
 
 ## Sequence diagram: one human move and the AI reply
@@ -231,16 +231,7 @@ sequenceDiagram
     App->>GS: draw(window)
 ```
 
-Key design point: a player never blocks. `Match::update()` polls the current
+`Match::update()` polls the current
 player once per frame, and `std::nullopt` means "no decision yet". That is why
-the same loop works for a mouse click, an instant AI, or (in the future) a
+the same loop works for a mouse click and an AI, or (hopefully in the future) a
 network opponent.
-
-## Extension points
-
-| To add... | Implement / change |
-|---|---|
-| A new opponent (e.g. network player) | A new class implementing `IPlayer`; nothing in `core` changes |
-| Local human-vs-human mode | A new menu entry that builds a `Match` with two `HumanPlayer`s |
-| A new screen (settings, scoreboard) | A new class implementing `IScene`, reached through `ISceneNavigator` |
-| A new difficulty | A new `Difficulty` value and a branch in `AIPlayer::chooseMove` |

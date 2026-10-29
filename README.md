@@ -9,8 +9,9 @@ Play against an AI with three difficulty levels, from random moves to an unbeata
 ![Platform](https://img.shields.io/badge/platform-Windows%20x64-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
-<!-- TODO: add a screenshot or GIF of the game, e.g. docs/images/gameplay.png -->
-![Gameplay screenshot](docs/images/gameplay.png)
+![Gameplay screenshots](docs/images/ttt_main.png)
+![](docs/images/ttt_game.png)
+![](docs/images/ttt_end.png)
 
 ## Features
 
@@ -87,7 +88,7 @@ You can also run a single suite directly: `build\Debug\TicTacToeTests.exe core|a
 The suites cover the rules (`core`), the AI in every difficulty, including an exhaustive check that
 **Hard never loses** (`ai`), and the pixel-to-cell input mapping (`ui`).
 
-To build only the tests, without SFML (for example on another platform):
+To build only the tests, without SFML:
 
 ```bash
 cmake -B build -DTTT_BUILD_GAME=OFF
@@ -110,31 +111,30 @@ TicTacToe/
 │   └── main.cpp
 ├── tests/               Unit tests
 ├── CMakeLists.txt       Main build definition
-└── TicTacToe.sln        Hand-written Visual Studio project (alternative to CMake)
+└── TicTacToe.sln        Hand-written Visual Studio project (original code)
 ```
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    app["app<br/>Application, scenes"] --> presentation["presentation<br/>BoardView, Button, InputMapper"]
-    app --> players["players<br/>HumanPlayer, AIPlayer"]
-    app --> core
-    presentation --> core["core<br/>Board, Game, Match, IPlayer"]
-    players --> core
+    /app["/app<br/>Application, scenes"] --> /presentation["/presentation<br/>BoardView, Button, InputMapper"]
+    /app --> /players["/players<br/>HumanPlayer, AIPlayer"]
+    /app --> /core
+    /presentation --> /core["/core<br/>Board, Game, Match, IPlayer"]
+    /players --> /core
 ```
 
 Dependencies only point towards `core`, which knows nothing about SFML, input or drawing.
 
 - **`IPlayer` abstraction.** A player is polled once per frame and returns a move or "not yet".
-  `Match` connects a `Game` with two players and never knows whether they are a person, an AI or,
-  later, a remote player (*Dependency Inversion*, *Open/Closed*).
+  `Match` connects a `Game` with two players and never knows whether they are a person or an AI.
 - **Single responsibility.** `Board` stores cells, `Rules` detects a winner, `Game` enforces turns,
   `BoardView` only draws, `InputMapper` only converts pixels to cells.
 - **Scenes.** `Application` runs the loop and delegates to one `IScene` at a time.
   Scenes request transitions through the small `ISceneNavigator` interface.
 
-Class and sequence diagrams are in [docs/architecture.md](docs/architecture.md).
+For more details, class and sequence diagrams can be found in [docs/architecture.md](docs/architecture.md).
 
 ## Customization
 
@@ -154,7 +154,7 @@ Class and sequence diagrams are in [docs/architecture.md](docs/architecture.md).
 | Missing `sfml-*.dll` when starting the exe | Build through CMake (it copies the DLLs) or start it from Visual Studio |
 | Visual Studio cannot find platform toolset `v145` | Retarget the project to your installed toolset, or use the CMake route, which detects it automatically |
 
-## Roadmap
+## Roadmap (hopefully)
 
 - [ ] Local two-player mode (two `HumanPlayer`s, new menu entry)
 - [ ] Highlight the winning line
