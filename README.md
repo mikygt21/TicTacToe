@@ -31,7 +31,11 @@ Play against an AI with three difficulty levels, from random moves to an unbeata
 SFML 3.0 binaries for MSVC x64 are bundled in `dependencies/`, so there is nothing else to install and
 no internet connection is needed to build or play.
 
-### Build and run
+### Run directly (ZIP file)
+1. Go to the last [Release](https://github.com/mikygt21/TicTacToe/releases) and download the [.zip folder](https://github.com/mikygt21/TicTacToe/releases/download/v1.0.0/TicTacToe-v1_0_0-win64.zip) with the executable file.
+2. Unzip and run as is.
+
+### Build and run (source code)
 
 From a terminal in the repository root:
 
